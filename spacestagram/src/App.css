@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,14 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.photocard {
+  border: none;
+  border-radius: .50rem;
+  text-align: center;
+  margin: 3rem auto;
+  float: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
 }
