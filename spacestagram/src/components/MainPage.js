@@ -13,7 +13,7 @@ class MainPage extends Component {
         let sParsed = `${start.getFullYear()}-`+(`0${start.getMonth() + 1}`).slice(-2)+`-`+(`0${start.getDate()}`).slice(-2)
         let end = new Date(this.state.endDate);
         let eParsed = `${end.getFullYear()}-`+(`0${end.getMonth() + 1}`).slice(-2)+`-`+(`0${end.getDate()}`).slice(-2)
-        console.log(eParsed)
+
         // var today = new Date();
         // var dd = String(today.getDate()).padStart(2, '0');
         // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -25,7 +25,6 @@ class MainPage extends Component {
                 this.setState({ 
                     pod: data,
                 })
-                console.log(this.state.pod)
             })
     }
 
