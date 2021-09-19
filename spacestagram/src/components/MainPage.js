@@ -11,17 +11,18 @@ class MainPage extends Component {
 
     state = {
         pod : [],
-        startDate : '08-07-2021',
-        endDate : '08-12-2021',
+        startDate : new Date(),
+        endDate : new Date(),
         toggle: false,
         show: false,
+        currentPhoto: [],
     }
 
     componentDidMount() {
         const apiey = 'PG7HPAShBt539mvrcYnAZ0zWukaNzVaLiLfxNPfQ'
 
         let start = new Date(this.state.startDate);
-        let sParsed = `${start.getFullYear()}-`+(`0${start.getMonth() + 1}`).slice(-2)+`-`+(`0${start.getDate()}`).slice(-2)
+        let sParsed = `${start.getFullYear()}-`+(`0${start.getMonth() + 1}`).slice(-2)+`-`+(`0${start.getDate() - 5}`).slice(-2)
         let end = new Date(this.state.endDate);
         let eParsed = `${end.getFullYear()}-`+(`0${end.getMonth() + 1}`).slice(-2)+`-`+(`0${end.getDate()}`).slice(-2)
 
@@ -36,6 +37,8 @@ class MainPage extends Component {
                 this.setState({ 
                     pod: data,
                 })
+                this.setState({pod: this.state.pod.reverse()})
+
             })
     }
 
@@ -43,18 +46,18 @@ class MainPage extends Component {
     renderPhotos() {
         return (
             <>
-                {this.state.pod.map((event) => 
-            <Row>
-                <Col sm key={event.date}>
-                    <Card className="photocard" id={event.id} style={{ width: '24rem', height: '26rem'}} >
-                        <Card.Img variant="top" id={event.id} className="cardImg" src={event.hdurl} style={{  paddingBottom: '.80rem', width: '25rem', height: '20rem', overflow: 'hidden', objectFit: 'cover'}}/>
+                {this.state.pod.map((event, index) => 
+            <Row key={index}>
+                <Col sm>
+                    <Card className="photocard" style={{ width: '24rem', height: '26rem'}} >
+                        <Card.Img variant="top" className="cardImg" src={event.hdurl} style={{  paddingBottom: '.80rem', width: '25rem', height: '20rem', overflow: 'hidden', objectFit: 'cover'}}/>
                         <Card.Body>
                             
-                            <Card.Text style={{ textAlign: 'left' }} id={event.date}>{event.title}</Card.Text>
+                            <Card.Text style={{ textAlign: 'center' }}>{event.title}</Card.Text>
                             <div>
                                 <Row>
                                 <Col style={{ textAlign: 'left' }}>
-                                    <Button variant="outline-dark" onClick={(e) => this.renderModal()}>
+                                    <Button variant="outline-dark" id={index} onClick={(e) => this.setState({show: true, currentPhoto: this.state.pod[index]})}>
                                         Explore
                                     </Button>
                                 </Col>
@@ -109,30 +112,21 @@ class MainPage extends Component {
         }
     }
 
-    renderModal() {
+    renderModal = e => {
+        let date = new Date(this.state.currentPhoto.date);
+        let dParsed = `${date.getFullYear()}-`+(`0${date.getMonth() + 1}`).slice(-2)+`-`+(`0${date.getDate()}`).slice(-2)
         return (
             <>
                 <Modal show={this.state.show} onHide={() => this.setState({ show: false })} animation={false} centered>
                     <Modal.Header closeButton>
-                        <Modal.Title>{}</Modal.Title>
+                        <Modal.Title>{this.state.currentPhoto.title}</Modal.Title>
                     </Modal.Header>
-                    <Col>
                     <Modal.Body>
-                        <h5>Event Details</h5>
-                        <h6>Date & Time</h6>
-                        <p style={{ marginBottom: '0'}}>{}</p>
-                        <p>{}</p>
-                        <h6>Location</h6>
-                        <p style={{ marginBottom: '0'}}>{}</p>
+                        <p style={{ marginBottom: '0'}}>{this.state.currentPhoto.explanation}</p>
                         <br style={{ borderBottom: '1rem'}}/>
-                        <h6>Description</h6>
-                        <p style={{ marginBottom: '0'}}>{}</p>
+                        <h6>Photo of the day Date:</h6>
+                        <p>{dParsed}</p>
                     </Modal.Body>
-                    </Col>
-                    <Col></Col>
-                    <Modal.Footer className="eventModal">
-                        
-                    </Modal.Footer>
                 </Modal>
             </>
         )
@@ -146,6 +140,7 @@ class MainPage extends Component {
                     <h1>Spacestagram</h1>
                     {this.renderPhotos()}
                 </div>
+                {this.renderModal()}
             </div>
             </>
         );
