@@ -135,13 +135,17 @@ class MainPage extends Component {
     render() {
         return (
             <>
-            <div style={{ paddingTop: '5rem', paddingLeft: '25rem', paddingRight: '25rem'}}>
-                <div style={{ width: '30rem', padding: '2rem', backgroundColor: '#F8F8F8'}}>
+            <Row>
+            <Col>
+            <div style={{ textAlign: '-webkit-center', paddingTop: '5rem'}}>
+                <div style={{  width: '35%', padding: '2rem', backgroundColor: '#F8F8F8'}}>
                     <h1>Spacestagram</h1>
                     {this.renderPhotos()}
                 </div>
                 {this.renderModal()}
             </div>
+            </Col>
+            </Row>
             </>
         );
     }
