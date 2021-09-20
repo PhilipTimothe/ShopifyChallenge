@@ -26,11 +26,6 @@ class MainPage extends Component {
         let end = new Date(this.state.endDate);
         let eParsed = `${end.getFullYear()}-`+(`0${end.getMonth() + 1}`).slice(-2)+`-`+(`0${end.getDate()}`).slice(-2)
 
-        // var today = new Date();
-        // var dd = String(today.getDate()).padStart(2, '0');
-        // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        // var yyyy = today.getFullYear();
-
         fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiey}&start_date=${sParsed}&end_date=${eParsed}`)
             .then((res) => res.json())
             .then(data => {
@@ -141,7 +136,7 @@ class MainPage extends Component {
         return (
             <>
             <div style={{ paddingTop: '5rem', paddingLeft: '25rem', paddingRight: '25rem'}}>
-                <div style={{ padding: '2rem', backgroundColor: '#F8F8F8'}}>
+                <div style={{ width: '30rem', padding: '2rem', backgroundColor: '#F8F8F8'}}>
                     <h1>Spacestagram</h1>
                     {this.renderPhotos()}
                 </div>
