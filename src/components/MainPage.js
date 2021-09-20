@@ -63,7 +63,7 @@ class MainPage extends Component {
                                 </Col>
                                 <Col style={{ textAlign: 'right' }}>
                                     <Button variant="light" className="heart" id={index} onClick={(e) => this.toggle(e)} style={{  outline: 'none', borderStyle: 'none', backgroundColor: 'transparent' }}>
-                                        {/* {this.renderLike()} */} hi
+                                        {this.renderLike(event)}
                                     </Button>
                                 </Col>
                                 </Row>
@@ -94,8 +94,8 @@ class MainPage extends Component {
         }
     }
 
-    renderLike() {
-        if (this.state.toggle === false) {
+    renderLike(event) {
+        if (event.toggle === false) {
             return (
                 <>
                 <svg style={{  width: '1.25rem', height: '1.25rem'}} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16" >
@@ -105,7 +105,7 @@ class MainPage extends Component {
                 </>
             )
         }
-        if (this.state.toggle === true) {
+        if (event.toggle === true) {
             return (
                 <>
                 <svg style={{ color: 'red', width: '1.25rem', height: '1.25rem'}} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
