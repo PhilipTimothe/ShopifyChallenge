@@ -37,8 +37,8 @@ class MainPage extends Component {
                 this.setState({ 
                     pod: data,
                 })
+                this.state.pod.map((photo) => photo['toggle'] = false)
                 this.setState({pod: this.state.pod.reverse()})
-
             })
     }
 
@@ -49,7 +49,7 @@ class MainPage extends Component {
                 {this.state.pod.map((event, index) => 
             <Row key={index}>
                 <Col sm>
-                    <Card className="photocard" style={{ width: '24rem', height: '26rem'}} >
+                    <Card key={index} className="photocard" style={{ width: '24rem', height: '26rem'}} >
                         <Card.Img variant="top" className="cardImg" src={event.hdurl} style={{  paddingBottom: '.80rem', width: '25rem', height: '20rem', overflow: 'hidden', objectFit: 'cover'}}/>
                         <Card.Body>
                             
@@ -62,14 +62,12 @@ class MainPage extends Component {
                                     </Button>
                                 </Col>
                                 <Col style={{ textAlign: 'right' }}>
-                                    <Button variant="light" className="heart" onClick={(e) => this.toggle()} style={{  outline: 'none', borderStyle: 'none', backgroundColor: 'transparent' }}>
-                                        {this.renderLike()}
+                                    <Button variant="light" className="heart" id={index} onClick={(e) => this.toggle(e)} style={{  outline: 'none', borderStyle: 'none', backgroundColor: 'transparent' }}>
+                                        {/* {this.renderLike()} */} hi
                                     </Button>
                                 </Col>
                                 </Row>
                             </div>
-                            {/* <Card.Text style={{ textAlign: 'left', overflow: 'hidden' }} >{event.explanation}</Card.Text> */}
-                            
                         </Card.Body>
                     </Card>
                 </Col>
@@ -79,13 +77,20 @@ class MainPage extends Component {
         )
     }
 
-    toggle() {
-        let toggle = this.state.toggle 
+    toggle = e => {
+        let toggle = this.state.pod[e.target.id].toggle 
+        let newPods = Object.assign({}, this.state.pod)
         if (toggle === false) {
-            this.setState({toggle: true})
+            newPods[e.target.id].toggle = true
+            this.setState({
+                    pod: Object.values(newPods)
+            })
         }
         if (toggle === true) {
-            this.setState({toggle: false})
+            newPods[e.target.id].toggle = false
+            this.setState({
+                    pod: Object.values(newPods)
+            })
         }
     }
 
